@@ -53,23 +53,11 @@ class MnistModel:
                                torchvision.transforms.Normalize(
                                  (0.1307,), (0.3081,))
 	 	]))
-		mnist_testset = datasets.MNIST(root='./data', train=False, download=True,
-															 transform=torchvision.transforms.Compose([
-																 torchvision.transforms.ToTensor(),
-																 torchvision.transforms.Normalize(
-																	 (0.1307,), (0.3081,))
-															 ]))
-
 		batch_size_train = 64
-		batch_size_test = 1000
 
 		self.train_loader = torch.utils.data.DataLoader(
 			mnist_trainset,
 			batch_size=batch_size_train, shuffle=True)
-
-		self.test_loader = torch.utils.data.DataLoader(
-			mnist_testset,
-			batch_size=batch_size_test, shuffle=True)
 
 		self.network.train()	
 		for i in range(epochs):
@@ -81,6 +69,19 @@ class MnistModel:
 				self.optimizer.step()
 
 	def test(self):
+
+		mnist_testset = datasets.MNIST(root='./data', train=False, download=True,
+															 transform=torchvision.transforms.Compose([
+																 torchvision.transforms.ToTensor(),
+																 torchvision.transforms.Normalize(
+																	 (0.1307,), (0.3081,))
+															 ]))
+
+		batch_size_test = 1000
+		self.test_loader = torch.utils.data.DataLoader(
+			mnist_testset,
+			batch_size=batch_size_test, shuffle=True)
+
 		self.network.eval()
 		test_loss = 0
 		correct = 0
@@ -97,4 +98,7 @@ class MnistModel:
 
 	def saveModel(self):
 		torch.save(self.network.state_dict(), "mnist_model")	
-		torch.save(self.optimizer.state_dict(), "mnist_state_dict")
+		torch.save(self.optimizer.state_dict(), "mnist_opt_state")
+	def loadModel(self, state, opt_state):
+		self.network.load_state_dict(torch.load(state))
+		self.optimizer.load_state_dict(torch.load(opt_state))
