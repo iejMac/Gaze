@@ -7,10 +7,14 @@ model = Model()
 gaze = Gaze(model)
 
 # show how gradients are flowing throughout training or at time tn
-gaze.checkGradients()
+if stream:
+	gaze.streamGradients()
+gaze.checkGradients(tn)
 
 # show how weights are changing throughout training or inference or at time tn
-gaze.checkWeights()
+if stream:
+	gaze.streamWeights()
+gaze.checkWeights(tn)
 
 etc.
 
