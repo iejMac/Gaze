@@ -1,2 +1,2 @@
 # Gaze
-Visualize Torch Models
+Visualize PyTorch Models
