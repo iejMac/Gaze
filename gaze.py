@@ -13,8 +13,14 @@ class Gaze:
       return old_forward(x)
     self.raw_model.forward = new_forward
 
+  # TODO: grad gets populated on loss.backward(), make this work.
   def streamGradients(self, key):
-    
+    old_forward = self.raw_model.forward
+    def new_forward(x):
+      f_pass = old_forward(x)
 
-# Need to set this up so that whenever the model calls forward, the thing is printed etc.
+      grad = (getattr(self.raw_model, key)).weight.grad
+      print(grad)
 
+      return f_pass
+    self.raw_model.forward = new_forward

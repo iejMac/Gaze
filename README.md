@@ -1,7 +1,7 @@
 # Gaze
 Visualize PyTorch Models
 
-### Idea for how it will work:
+### Idea:
 ```
 model = Model()
 gaze = Gaze(model)
@@ -15,8 +15,4 @@ gaze.checkGradients(tn)
 if stream:
 	gaze.streamWeights()
 gaze.checkWeights(tn)
-
-etc.
-
 ```
-
