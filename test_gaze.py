@@ -3,6 +3,7 @@ from example.model import MnistModel
 
 test_model = MnistModel()
 gazer = Gaze(test_model.network)
+gazer.streamWeight("conv2.weight")
 
-print(gazer.model.keys())
-
+test_model.train(1)
+test_model.test()

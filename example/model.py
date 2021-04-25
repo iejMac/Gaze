@@ -47,7 +47,9 @@ class MnistModel:
 	def train(self, epochs=1):
 		# Get data:
 
-		mnist_trainset = datasets.MNIST(root='./data', train=True, download=True,
+		print("Beginning training...")
+
+		mnist_trainset = datasets.MNIST(root='/Users/maciej/Gaze/example/data', train=True, download=True,
 			transform=torchvision.transforms.Compose([
                                torchvision.transforms.ToTensor(),
                                torchvision.transforms.Normalize(
@@ -61,6 +63,7 @@ class MnistModel:
 
 		self.network.train()	
 		for i in range(epochs):
+			print(f"Epoch #{i}...")
 			for batch_idx, (data, target) in enumerate(self.train_loader):
 				self.optimizer.zero_grad()
 				output = self.network(data)
@@ -70,7 +73,7 @@ class MnistModel:
 
 	def test(self):
 
-		mnist_testset = datasets.MNIST(root='./data', train=False, download=True,
+		mnist_testset = datasets.MNIST(root='/Users/maciej/Gaze/example/data', train=False, download=True,
 															 transform=torchvision.transforms.Compose([
 																 torchvision.transforms.ToTensor(),
 																 torchvision.transforms.Normalize(
