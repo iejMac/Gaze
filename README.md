@@ -1,4 +1,4 @@
-# Gaze
+# Gaze 👁🧠
 Visualize PyTorch Models
 
 ### Streaming:
