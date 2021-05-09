@@ -29,7 +29,7 @@ from gaze import Gaze
 class Model:
   def __init__(self):
     self.network = Network(...) # nn.Module
-    self.optimizer = optim.SomePytorchOptimizer(...) 
+    self.optimizer = optim.SomePyTorchOptimizer(...) 
     self.gaze = Gaze(self.network, self.optimizer)
 
   def train(epochs):
@@ -37,7 +37,7 @@ class Model:
       for i, data_batch in enumerate(data):
         self.optimizer.zero_grad()
         output = self.network(data_batch)
-        loss = somePytorchLoss(output, labels[i])
+        loss = somePyTorchLoss(output, labels[i])
 
         # Only check weights and gradients when loss is lower than some threshold:
         if loss.item() < threshold:
