@@ -2,8 +2,9 @@ import sys
 import torch
 
 class Gaze:
-  def __init__(self, model):
+  def __init__(self, model, optimizer):
     self.raw_model = model
+    self.optimizer = optimizer
 
   def streamWeight(self, key):
     old_forward = self.raw_model.forward
@@ -15,12 +16,10 @@ class Gaze:
 
   # TODO: grad gets populated on loss.backward(), make this work.
   def streamGradients(self, key):
-    old_forward = self.raw_model.forward
-    def new_forward(x):
-      f_pass = old_forward(x)
-
+    old_step = self.optimizer.step
+    def new_step():
+      old_step()
       grad = (getattr(self.raw_model, key)).weight.grad
       print(grad)
 
-      return f_pass
-    self.raw_model.forward = new_forward
+    self.optimizer.step = new_step
